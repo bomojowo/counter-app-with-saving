@@ -1,8 +1,8 @@
 import { useState } from "react";
 
 export default function EmojiPicker(): JSX.Element{
-    const[emojiFromCurrentRender, queueRenderWithNewEmoji] = useState("⏰");
-    const [storedEmojifromPreviousRender, queueRenderWithOldEmoji] = useState("")
+    const[emojiFromCurrentRender, queueRenderWithNewEmoji] = useState('');
+    const [storedEmojifromPreviousRender, queueRenderWithOldEmoji] = useState<string[]>([])
 
     const handleClockEmoji = () => {
         queueRenderWithNewEmoji('⏰')
@@ -25,12 +25,15 @@ export default function EmojiPicker(): JSX.Element{
     };
 
     const handleStoreCurrentEmoji = () => {
-        queueRenderWithOldEmoji(emojiFromCurrentRender)
+        queueRenderWithOldEmoji([
+          ...storedEmojifromPreviousRender,  
+            emojiFromCurrentRender,
+        ])
     }
     return(
         <>
         <h1>Emoji Picker</h1>
-        <p>Your stored emoji: {storedEmojifromPreviousRender}</p>
+        <p>Your stored emojia: {storedEmojifromPreviousRender.join(", ")}</p>
         <p>Emoji: {emojiFromCurrentRender}</p>
         <button onClick={handleClockEmoji}>⏰</button>
         <button onClick={handleBedEmoji}>🛌</button>

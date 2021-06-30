@@ -1,52 +1,13 @@
 import { useState } from "react";
 
 export default function EmojiPicker(): JSX.Element {
-  const [emojiFromCurrentRender, queueRenderWithNewEmoji] = useState("");
+  
   const [storedEmojifromPreviousRender, queueRenderWithNewStoredEmoji] =
     useState<string[]>([]);
 
-  const handleClockEmoji = () => {
-    queueRenderWithNewEmoji("⏰");
-  };
-
-  const handleBedEmoji = () => {
-    queueRenderWithNewEmoji("🛌");
-  };
-
-  const handlePlateEmoji = () => {
-    queueRenderWithNewEmoji("🍽️");
-  };
-
-  const handleEggEmoji = () => {
-    queueRenderWithNewEmoji("🍳");
-  };
-
-  const handleFaceEmoji = () => {
-    queueRenderWithNewEmoji("😋");
-  };
-
-  const handleStoreCurrentEmoji = () => {
-    if (storedEmojifromPreviousRender.length < 5) {
-      queueRenderWithNewStoredEmoji([
-        ...storedEmojifromPreviousRender,
-        emojiFromCurrentRender,
-      ]);
-    } else {
-      queueRenderWithNewStoredEmoji([
-        ...storedEmojifromPreviousRender.slice(1, 6),
-        emojiFromCurrentRender,
-      ]);
-      console.log("Theres more than 5 emojis");
-    }
-  };
-
-  const handleLogMessage = () => {
-    if (storedEmojifromPreviousRender.length <= 5) {
-      console.log("5 or less than 5 emojis");
-    } else {
-      console.log("there are more than 5 emojis");
-    }
-  };
+  const handleEmojiChange = (emoji: string) => {
+    queueRenderWithNewStoredEmoji([...storedEmojifromPreviousRender, emoji])
+  }
 
   return (
     <>
@@ -60,15 +21,15 @@ export default function EmojiPicker(): JSX.Element {
         )}
       </p>
 
-      <p>Emoji: {emojiFromCurrentRender}</p>
-      <button onClick={handleClockEmoji}>⏰</button>
-      <button onClick={handleBedEmoji}>🛌</button>
-      <button onClick={handlePlateEmoji}>🍽️</button>
-      <button onClick={handleEggEmoji}>🍳</button>
-      <button onClick={handleFaceEmoji}>😋</button>
-      <hr />
-      <button onClick={handleStoreCurrentEmoji}>Store Emoji</button>
-      <button onClick={handleLogMessage}>Log message</button>
+
+      <p>James Emoji: {storedEmojifromPreviousRender[storedEmojifromPreviousRender.length - 1]}</p>
+
+      <button onClick={() => handleEmojiChange("⏰")}>⏰</button>
+      <button onClick={() => handleEmojiChange("🛌")}>🛌</button>
+      <button onClick={() => handleEmojiChange("🍽️")}>🍽️</button>
+      <button onClick={() => handleEmojiChange("🍳")}>🍳</button>
+      <button onClick={() => handleEmojiChange("😋")}>😋</button>
+   
     </>
   );
 }

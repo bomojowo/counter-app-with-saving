@@ -6,8 +6,35 @@ export default function EmojiPicker(): JSX.Element {
     useState<string[]>([]);
 
   const handleEmojiChange = (emoji: string) => {
-    queueRenderWithNewStoredEmoji([...storedEmojifromPreviousRender, emoji])
+    //queueRenderWithNewStoredEmoji([...storedEmojifromPreviousRender, emoji]) //returns function that passes the argument of the storedEmoji... and the new current emoji 
+    if (storedEmojifromPreviousRender.length < 5) {
+        queueRenderWithNewStoredEmoji([
+          ...storedEmojifromPreviousRender,
+          emoji,
+        ]);
+      } else {
+        queueRenderWithNewStoredEmoji([
+          ...storedEmojifromPreviousRender.slice(1, 6),
+          emoji,
+        ]);
+        console.log("Theres more than 5 emojis");
+      }
   }
+
+//     const handleMoreThanFiveEmoji = (emoji: string) => {
+//     if (storedEmojifromPreviousRender.length < 5) {
+//       queueRenderWithNewStoredEmoji([
+//         ...storedEmojifromPreviousRender,
+//         emoji,
+//       ]);
+//     } else {
+//       queueRenderWithNewStoredEmoji([
+//         ...storedEmojifromPreviousRender.slice(1, 6),
+//         emoji,
+//       ]);
+//       console.log("Theres more than 5 emojis");
+//     }
+//   };
 
   return (
     <>
@@ -21,9 +48,9 @@ export default function EmojiPicker(): JSX.Element {
         )}
       </p>
 
-
-      <p>James Emoji: {storedEmojifromPreviousRender[storedEmojifromPreviousRender.length - 1]}</p>
-
+      {/*uses storedEmojiFromPreviousRender variable and accesses the last tored emoji through index[(storedEmoji....).length - 1] */}
+      <p>Current Emoji: {storedEmojifromPreviousRender[storedEmojifromPreviousRender.length - 1]}</p>
+      {/*used an anonymous arrow function to pass through string; removes duplication of writing function to print diff emoji each time */}
       <button onClick={() => handleEmojiChange("⏰")}>⏰</button>
       <button onClick={() => handleEmojiChange("🛌")}>🛌</button>
       <button onClick={() => handleEmojiChange("🍽️")}>🍽️</button>

@@ -2,7 +2,7 @@ import { useState } from "react";
 
 export default function EmojiPicker(): JSX.Element{
     const[emojiFromCurrentRender, queueRenderWithNewEmoji] = useState('');
-    const [storedEmojifromPreviousRender, queueRenderWithOldEmoji] = useState<string[]>([])
+    const [storedEmojifromPreviousRender, queueRenderWithNewStoredEmoji] = useState<string[]>([])
 
     const handleClockEmoji = () => {
         queueRenderWithNewEmoji('⏰')
@@ -25,11 +25,29 @@ export default function EmojiPicker(): JSX.Element{
     };
 
     const handleStoreCurrentEmoji = () => {
-        queueRenderWithOldEmoji([
-          ...storedEmojifromPreviousRender,  
-            emojiFromCurrentRender,
-        ])
+        if(storedEmojifromPreviousRender.length < 5){
+            queueRenderWithNewStoredEmoji([
+                ...storedEmojifromPreviousRender,  
+                  emojiFromCurrentRender,
+              ])
+        }else{
+            queueRenderWithNewStoredEmoji([
+                ...storedEmojifromPreviousRender.slice(1, 6),  
+                  emojiFromCurrentRender,
+              ])
+            console.log('Theres more than 5 emojis')
+        }
+            
     }
+
+    const handleLogMessage =() =>{
+        if(storedEmojifromPreviousRender.length <= 5){
+            console.log('5 or less than 5 emojis')
+        }else{
+            console.log('there are more than 5 emojis')
+        }
+    }
+
     return(
         <>
         <h1>Emoji Picker</h1>
@@ -46,6 +64,7 @@ export default function EmojiPicker(): JSX.Element{
         <button onClick={handleFaceEmoji}>😋</button>
         <hr />
         <button onClick={handleStoreCurrentEmoji}>Store Emoji</button>
+        <button onClick={handleLogMessage}>Log message</button>
         </>
         
     )

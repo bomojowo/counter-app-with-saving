@@ -33,7 +33,11 @@ export default function EmojiPicker(): JSX.Element{
     return(
         <>
         <h1>Emoji Picker</h1>
-        <p>Your stored emojia: {storedEmojifromPreviousRender.join(", ")}</p>
+        <p>Your stored emojis: {storedEmojifromPreviousRender.map((emoji: string, index): JSX.Element => {
+            return (<li key={index}>{emoji}</li>)
+        }  )}
+        </p>
+       
         <p>Emoji: {emojiFromCurrentRender}</p>
         <button onClick={handleClockEmoji}>⏰</button>
         <button onClick={handleBedEmoji}>🛌</button>
@@ -43,5 +47,6 @@ export default function EmojiPicker(): JSX.Element{
         <hr />
         <button onClick={handleStoreCurrentEmoji}>Store Emoji</button>
         </>
+        
     )
 }

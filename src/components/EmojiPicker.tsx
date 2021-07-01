@@ -21,21 +21,6 @@ export default function EmojiPicker(): JSX.Element {
       }
   }
 
-//     const handleMoreThanFiveEmoji = (emoji: string) => {
-//     if (storedEmojifromPreviousRender.length < 5) {
-//       queueRenderWithNewStoredEmoji([
-//         ...storedEmojifromPreviousRender,
-//         emoji,
-//       ]);
-//     } else {
-//       queueRenderWithNewStoredEmoji([
-//         ...storedEmojifromPreviousRender.slice(1, 6),
-//         emoji,
-//       ]);
-//       console.log("Theres more than 5 emojis");
-//     }
-//   };
-
   return (
     <>
       <h1>Emoji Picker</h1>
